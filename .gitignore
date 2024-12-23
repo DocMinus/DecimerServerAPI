@@ -1,0 +1,61 @@
+# IDE and environment directories
+**/.idea/
+**/__pycache__
+**/.ipynb_checkpoints
+**/image*.svg
+**/*.log
+**/.vscode
+**/.vs
+**/.conda
+**/.env
+**/.venv
+**/env/
+**/venv/
+/.temp
+
+# installer files
+**/*egg-info
+**/*.egg
+**/dist
+**/build
+
+# Log files
+**/*.log
+
+# Backup files
+*.bkp
+
+# Data files
+*.csv
+
+# Temporary files
+tmp.txt
+tmp.csv
+tmp.tmp
+temp.tmp
+result.tmp
+status.txt
+gnurff*.py 
+
+# Image files
+# allow images for examples to be uploaded to the repo
+# *.png
+# *.emf
+# *.gif
+# *.svg
+# *.jpg
+# *.jpeg
+# *.bmp
+
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Other mac files
+Icon
+._*
+.Spotlight-V100
+.Trashes
+.com.apple.timemachine.donotpresent

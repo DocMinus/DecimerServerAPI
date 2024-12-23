@@ -1,0 +1,12 @@
+services:
+  decimer_api:
+    image: decimer_api:latest
+    container_name: decimerapi
+    ports:
+      - "8099:8099"
+    volumes:
+      - model_files:/home/appuser/.data/DECIMER-V2 # this is the path to the DECIMER-V2 data directory
+    restart: always
+
+volumes:
+  model_files:
