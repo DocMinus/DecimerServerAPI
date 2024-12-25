@@ -5,5 +5,5 @@ decimer==2.7.1
 tensorflow-macos==2.15.0
 tensorflow-metal==1.1.0
 # matplotlib==3.9.3 # only required for decimer classifier training
--e ./packages/decimer_ic
--e ./packages/decimerapi
+./packages/decimerapi
+./packages/decimer_ic

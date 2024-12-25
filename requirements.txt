@@ -3,5 +3,5 @@ fastapi==0.115.5
 python-multipart==0.0.19
 decimer==2.7.1
 # matplotlib==3.9.3 # only required for decimer classifier training
--e ./packages/decimer_ic
--e ./packages/decimerapi
+./packages/decimerapi
+./packages/decimer_ic

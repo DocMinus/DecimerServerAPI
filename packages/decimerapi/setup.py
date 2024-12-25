@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 import os
 
 setup_dir = os.path.dirname(os.path.abspath(__file__))
@@ -13,7 +13,7 @@ setup(
     description="A wrapper module for decimer as used by API.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    packages=["decimerapi"],
+    packages=find_packages(),
     license="MIT",
     classifiers=[
         "Programming Language :: Python :: 3",
