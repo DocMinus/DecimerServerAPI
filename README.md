@@ -78,6 +78,9 @@ This seems to have to do with the decimer image to smiles implementation and is 
 ### Of note:
 <span style="background-color: white; color:blue; font-weight:bold;">First time start up might take a few minutes due to model download! (depending on your connection speed; this happens only once).</span>
 
+## API Documentation
+See the separate readme file [readme_api_calls.md](readme_api_calls.md).
+
 ## Author: 
 [DocMinus](https://github.com/DocMinus) <br>
 First development during October-December 2024

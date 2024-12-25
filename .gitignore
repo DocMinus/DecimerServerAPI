@@ -36,6 +36,7 @@ temp.tmp
 result.tmp
 status.txt
 gnurff*.py 
+gnurff*.txt
 
 # Image files
 # allow images for examples to be uploaded to the repo
