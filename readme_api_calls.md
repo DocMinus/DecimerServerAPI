@@ -3,8 +3,8 @@
 from pathlib import Path
 from decimerapi.decimerapi import DecimerAPI
 
-decimer_api = DecimerAPI()  # using default port 8099
-# decimer_api = DecimerAPI(8888) # different port number
+decimer_api = DecimerAPI()  # using default host localhost and port 8099
+# decimer_api = DecimerAPI("192.168.50.170", 8888) # different port number
 print(decimer_api.server_status())
 
 current_file_path = Path(__file__).resolve()

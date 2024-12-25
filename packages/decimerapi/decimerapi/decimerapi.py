@@ -4,10 +4,10 @@ module: decimerapi.py
 
 license: MIT
 Copyright (c) 2024 DocMinus
-V 0.3.1 - working tools implementation, now as class to submitt a different port
-2024-12-25 typo fixed
+V 0.4.0 - working tools implementation, now as class to submitt a different port
+2024-12-25 typo fixed; host added to __init__ method, allows to run not just locally
 
-tools server usage
+tools for server usage, basically independet from used environment
 
 #TODO figure out a way to accept and convert emf images
 """
@@ -29,8 +29,8 @@ class DecimerAPI:
         DECIMER_URL (str): The URL of the DECIMER API endpoint.
 
     Methods:
-        __init__(port: int = 8099):
-            Initializes the DecimerAPI instance with the specified port, defaulting to 8099.
+        __init__(host: str = "localhost", port: int = 8099):
+            Initializes the DecimerAPI instance with the specified host and port, defaulting to localhost 8099.
 
         _is_valid_image_type(encoded_image: bytes) -> bool:
             Checks if the base64-encoded image is of type JPG, PNG, GIF (EMF not yet supported).
@@ -45,8 +45,8 @@ class DecimerAPI:
                 str: The SMILES string if the API call is successful, None otherwise.
     """
 
-    def __init__(self, port: int = 8099):
-        self.DECIMER_URL = f"http://localhost:{port}"
+    def __init__(self, host: str = "localhost", port: int = 8099):
+        self.DECIMER_URL = f"http://{host}:{port}"
         self.DECIMER_I2S = f"{self.DECIMER_URL}/image2smiles/"
 
     def _is_valid_image_type(self, encoded_image: bytes) -> bool:

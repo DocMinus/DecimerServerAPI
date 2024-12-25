@@ -1,6 +1,6 @@
 # DECIMER V2 - API server, including Image Classifier, incl. Mac Silicone support
 This package is an extension of [DECIMER V2](https://github.com/Kohulan/DECIMER-Image_Transformer) including the [DECIMER Image Classifier](https://github.com/Iagea/DECIMER-Image-Classifier):
-- Served as an API either via local server, docker based server or standalone script without server requirement.
+- Served as an API either via (local) server, docker based server or standalone script without server requirement.
 - Considers Mac Silicone (Darwin, aka Mac Mx models) and their specific Tensorflow setup to take advantage of their GPU (more of an excercise than really necessary).
 - The classifier now also classifies reaction scheme images rather well by using the decimer_classifier.get_classifier_score().
 
@@ -35,8 +35,8 @@ The original package wasn't intended for reaction schemes, but that tweak seems 
 You have the choice of three versions, or all, depening on your needs.
 
 * The docker version. <br>
-With this u should be able to use any python environment, only need to add the decimerapi (see below).
-* A local server version without need for docker, but a full environment install (see below).
+With this you should be able to use any python environment, only need to add the decimerapi (see below).
+* A (local) server version without need for docker, but a full environment install (see below).
 * don't want server or docker? A standalone version is available as well (also requires full env install)
 
 ### For docker version
@@ -52,8 +52,8 @@ To access via the API (recommended), install into any python version (>= 3.8) yo
 Best results with python3.10, at least on Mac M models. Py 3.9 on Mac with gpu support doesn't seenm to work (for me), the non GPU version should be fine on any Py version.<br>
 Other python versions on Linux according to DECIMER authors should be fine?<br>
 ```shell
-conda create --name decimerapi python=3.10.0  # or other if you don't want/need Mac GPU support
-conda activate decimerapi
+conda create --name decimerserver python=3.10.0  # or other if you don't want/need Mac GPU support
+conda activate decimerserver
 ```
 Linux/Windows: ```pip install -r requirements.txt``` <br>
 Mac Darwin/Silicon: ```pip install -r requirements_mac.txt``` <br>
@@ -67,7 +67,8 @@ Mac Darwin/Silicon: ```pip install -r requirements_mac.txt``` <br>
 `python decimer_server.py`<br>
 
 ### Example usage
-The `python decimer_example.py` shows how to call the server, works for both, docker and local server versions.<br>
+The server runs on localhost:8099. This can be changed to ip-address:portnumber if you want to run another machine (or cloud even).<br>
+The `python decimer_example.py` shows how to call the server, works for both, docker and (local) server versions.<br>
 (note, if you have both running (for testing?) at the same time, you will need to change the port in the local server version)<br>
 Should you want to run a serverless app, check the [optional_standalone_no_server](./optional_standalone_no_server) folder.
 

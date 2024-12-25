@@ -14,7 +14,7 @@ from decimerapi.decimerapi import DecimerAPI
 
 
 def main():
-    decimer_api = DecimerAPI()  # using default port 8099
+    decimer_api = DecimerAPI()  # using default host locahost on port 8099
     print(decimer_api.server_status())
 
     current_file_path = Path(__file__).resolve()
