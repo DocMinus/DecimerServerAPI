@@ -4,8 +4,8 @@ module: decimerapi.py
 
 license: MIT
 Copyright (c) 2024 DocMinus
-V 0.3.0 - working tools implementation, now as class to submitt a different port
-2024-12-23
+V 0.3.1 - working tools implementation, now as class to submitt a different port
+2024-12-25 typo fixed
 
 tools server usage
 
@@ -52,7 +52,7 @@ class DecimerAPI:
     def _is_valid_image_type(self, encoded_image: bytes) -> bool:
         """Check if the base64-encoded image is of type JPG, PNG, or EMF."""
         image_type = imghdr.what(None, h=base64.b64decode(encoded_image))
-        return image_type in ["jpeg", "png", "emf", "gif"]
+        return image_type in ["jpeg", "png", "gif"]  # "emf" not yet supported
 
     # def _convert_emf_to_png(self, encoded_image: bytes) -> bytes:
     #     """Convert EMF image to PNG format."""
@@ -82,7 +82,7 @@ class DecimerAPI:
             return None  # return error would be better
 
         if not self._is_valid_image_type(encoded_image):
-            print("Invalid image type. Only JPG, PNG, and EMF are supported.")
+            print("Invalid image type. Only JPG, PNG, and GIF are supported.")
             return None  # return error would be better
 
         # image_type = imghdr.what(None, h=base64.b64decode(encoded_image))
