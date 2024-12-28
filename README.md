@@ -2,6 +2,7 @@
 This package is an extension of [DECIMER V2](https://github.com/Kohulan/DECIMER-Image_Transformer) including the [DECIMER Image Classifier](https://github.com/Iagea/DECIMER-Image-Classifier):
 - Served as an API either via (local) server, docker based server or standalone script without server requirement.
 - Considers Mac Silicone (Darwin, aka Mac Mx models) and their specific Tensorflow setup to take advantage of their GPU (more of an excercise than really necessary).
+- Linux/Win GPU support depends on your Cuda installs (not considered here), i.e. GPU possible.
 - The classifier now also classifies reaction scheme images rather well by using the decimer_classifier.get_classifier_score().
 
 ## Why this version of Decimer (detailed explanation)
@@ -27,9 +28,10 @@ Although, ignoring any of the enclosed code, just using the decimer python packa
 - An API is provided to facilitate the server based calls.
 
 ## Changes compared to using the classifier package
-Instead of the true/false readout, a classifier score of <0.3 is used which allows reactions to still be classified as structures and thus not sorted out.<br>
-The original package wasn't intended for reaction schemes, but that tweak seems to make it work with reactions as well. Change that value as you see fit if it doesn't work well for you.<br>
-
+- Instead of the true/false readout, a classifier score of <0.3 is used which allows reactions to still be classified as structures and thus not sorted out.
+- The original package wasn't intended for reaction schemes, but that tweak seems to make it work with reactions as well. <br>
+  Change that value in "decimer_server.py" (`IC_THRESHOLD`) as you see fit if it doesn't work well for you.
+- Furhtermore, removed an unnecessary save_image command, and changed the keras calls to tf.keras
 
 ## Installation
 You have the choice of three versions, or all, depening on your needs.
@@ -69,7 +71,6 @@ Mac Darwin/Silicon: ```pip install -r requirements_mac.txt``` <br>
 ### Example usage
 The server runs on localhost:8099. This can be changed to ip-address:portnumber if you want to run another machine (or cloud even).<br>
 The `python decimer_example.py` shows how to call the server, works for both, docker and (local) server versions.<br>
-(note, if you have both running (for testing?) at the same time, you will need to change the port in the local server version)<br>
 Should you want to run a serverless app, check the [optional_standalone_no_server](./optional_standalone_no_server) folder.
 
 ### Important caveat
@@ -90,6 +91,7 @@ First development during October-December 2024
 MIT license, based on inheritance from Decimer Transfomer and Classifier which are both MIT license. 
 <br>
 
-#TODO Option to change the threshold of image classifier via API
-
-#TODO create a readily available image on dockerhub
+### TODOs
+Depending on demand:<br>
+#TODO Option to change the threshold of image classifier via API<br>
+#TODO create a readily available image on dockerhub<br>

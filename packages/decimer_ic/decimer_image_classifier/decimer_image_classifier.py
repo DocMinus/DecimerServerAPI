@@ -1,8 +1,14 @@
+# code by Isabel Agea
+# changed by DocMinus:
+# removed the image.save() from the original code
+# changed all keras calls to tf.keras calls
+
 import os
 from copy import copy
 from PIL import Image
 import tensorflow as tf
-import tensorflow.keras as keras
+
+# import tensorflow.keras as keras
 
 
 class DecimerImageClassifier:
@@ -16,7 +22,7 @@ class DecimerImageClassifier:
             tf.config.experimental.set_memory_growth(gpu, True)
         # Load model
         model_path = os.path.join(os.path.split(__file__)[0], "model")
-        self.model = keras.models.load_model(model_path)
+        self.model = tf.keras.models.load_model(model_path)
 
     def is_chemical_structure(self, img=False, threshold: float = 0.000089) -> bool:
         """
@@ -55,9 +61,9 @@ class DecimerImageClassifier:
         if type(img) == str:
             img = Image.open(img)
         img = self._get_resized_grayscale_image(img)
-        img_array = keras.preprocessing.image.img_to_array(img)
+        img_array = tf.keras.preprocessing.image.img_to_array(img)
         img_array = tf.expand_dims(img_array, 0)
-        img_array = keras.applications.efficientnet.preprocess_input(img_array)
+        img_array = tf.keras.applications.efficientnet.preprocess_input(img_array)
         predictions = self.model.predict(img_array)
         score = tf.nn.sigmoid(predictions[0])
         return score.numpy()[0]
@@ -125,6 +131,5 @@ class DecimerImageClassifier:
             orig_img.load()
             img = Image.new("RGB", orig_img.size, (255, 255, 255))
             img.paste(orig_img, mask=orig_img.split()[3])
-            img.save("caffeine_mod.png")
         img = img.convert("L").convert("RGB")
         return img

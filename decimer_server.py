@@ -10,7 +10,8 @@ V0.0.3 - added image classifier if actually a chemical structure or not
 V0.0.4 - added image classifier based on score <0.3 instead of the True/False
 V0.1.0 - V bump, now with encoding instead of file upload, works better with docker
 V0.2.0 - one server version only that includes the classifier as optional
-2024-12-22
+V0.2.1 - added threshold as variable
+2024-12-28
 See Readme / requirements for dependencies
 works on Linux and Windows, also Mac with GPU
 """
@@ -25,6 +26,7 @@ from fastapi import FastAPI, Form, HTTPException
 from fastapi.responses import JSONResponse
 
 decimer_classifier = DecimerImageClassifier()
+IC_TRESHOLD: float = 0.3
 
 
 def _predict_smiles(encoded_image: any, hand_drawn: bool = False) -> str:
@@ -98,7 +100,7 @@ async def image_to_smiles(
 
     try:
         if classify_image:
-            if decimer_classifier.get_classifier_score(temporaryfile) < 0.3:
+            if decimer_classifier.get_classifier_score(temporaryfile) < IC_TRESHOLD:
                 decoded_image = config.decode_image(temporaryfile)
                 smiles = _predict_smiles(decoded_image, is_hand_drawn)
                 if smiles is None:

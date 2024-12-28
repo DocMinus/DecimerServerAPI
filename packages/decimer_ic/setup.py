@@ -9,7 +9,7 @@ with open(os.path.join(setup_dir, "README.md"), "r") as fh:
 
 setuptools.setup(
     name="decimer_image_classifier",
-    version="1.0.2",
+    version="1.0.3",
     author="Isabel Agea",
     author_email="Maria.Isabel.Agea.Lorente@vscht.cz",
     description="DECIMER Image Classifier based on EfficientNetB0 for structure recognition. Adapted setup for standalone use.",
@@ -30,4 +30,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.8",
+    install_requires=[
+        "decimer",
+    ],
 )
