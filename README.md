@@ -43,12 +43,19 @@ With this you should be able to use any python environment, only need to add the
 
 ### For docker version
 Requires docker... doh!<br>
-Windows cmd: ´win_make.bat´<br>
-Mac/Linux: ´Make build´<br>
-_important to note: the docker version unfortunately doesn't support mac-gpu since it can only be linux based_<br>
-It will nevertheless be sufficiently fast. You could always compare the time for local versus docker version?
+Windows cmd: ```win_make.bat```<br>
+Mac/Linux: ```Make build```<br>
+Alternatively, a readily available dockerhub image can be pulled instead:<br>
+```shell
+docker pull docminus/decimer_api
+```
+_important to note: the docker version unfortunately doesn't support mac-gpu since docker is solely linux based_<br>
+_your linux/win GPU support depends on your Cuda and other environment installations_<br>
 To access via the API (recommended), install into any python version (>= 3.8) you might have: <br>
-```pip install ./packages/decimerapi/``` <br>
+```shell
+pip install ./packages/decimerapi/
+``` 
+
 
 ### For local version (full install)
 Best results with python3.10, at least on Mac M models. Py 3.9 on Mac with gpu support doesn't seenm to work (for me), the non GPU version should be fine on any Py version.<br>
@@ -94,4 +101,7 @@ MIT license, based on inheritance from Decimer Transfomer and Classifier which a
 ### TODOs
 Depending on demand:<br>
 #TODO Option to change the threshold of image classifier via API<br>
-#TODO create a readily available image on dockerhub<br>
+#TODO add an emf converter
+
+### Uninstalling
+Should you want/need to uninstall, after removing any app folder and environment, check your homefolder for ".data" folder where Decimer stores its models, delete this folder as well.
