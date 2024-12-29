@@ -1,6 +1,7 @@
 services:
   decimer_api:
-    image: decimer_api:latest
+    image: docker.io/docminus/decimer_api:latest # for dockerhub image
+    # image: decimer_api:latest  # for locally built image
     container_name: decimerapi
     ports:
       - "8099:8099"
