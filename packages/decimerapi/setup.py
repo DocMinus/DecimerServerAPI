@@ -1,5 +1,6 @@
-from setuptools import setup, find_packages
 import os
+
+from setuptools import find_packages, setup
 
 setup_dir = os.path.dirname(os.path.abspath(__file__))
 with open(os.path.join(setup_dir, "README.md"), "r") as fh:
@@ -7,7 +8,7 @@ with open(os.path.join(setup_dir, "README.md"), "r") as fh:
 
 setup(
     name="decimerapi",
-    version="0.4.0",
+    version="0.4.1",
     author="Alexander Minidis",
     author_email="your_email@example.com",
     description="A wrapper module for decimer as used by API.",

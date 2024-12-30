@@ -99,9 +99,7 @@ MIT license, based on inheritance from Decimer Transfomer and Classifier which a
 <br>
 
 ### TODOs
-Depending on demand:<br>
-#TODO Option to change the threshold of image classifier via API<br>
-#TODO add an emf converter
+Removed for now.
 
 ### Uninstalling
 Should you want/need to uninstall, after removing any app folder and environment, check your homefolder for ".data" folder where Decimer stores its models, delete this folder as well.
