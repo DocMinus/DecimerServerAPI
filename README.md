@@ -56,7 +56,6 @@ To access via the API (recommended), install into any python version (>= 3.8) yo
 pip install ./packages/decimerapi/
 ``` 
 
-
 ### For local version (full install)
 Best results with python3.10, at least on Mac M models. Py 3.9 on Mac with gpu support doesn't seenm to work (for me), the non GPU version should be fine on any Py version.<br>
 Other python versions on Linux according to DECIMER authors should be fine?<br>
@@ -87,6 +86,15 @@ This seems to have to do with the decimer image to smiles implementation and is 
 ### Of note:
 <span style="background-color: white; color:blue; font-weight:bold;">First time start up might take a few minutes due to model download! (depending on your connection speed; this happens only once).</span>
 
+### EMF support (optional)
+Should you require conversion of EMF files (which most likely stem from a Word-document extraction), you require Inkscape to be installed. The API will ignore EMFs otherwise.
+- mac:
+    brew install --cask inkscape
+- linux:
+    sudo apt-get install inkscape
+- windows:
+    download from official website: https://inkscape.org/release/
+
 ## API Documentation
 See the separate readme file [readme_api_calls.md](readme_api_calls.md).
 
@@ -97,9 +105,6 @@ First development during October-December 2024
 ## License
 MIT license, based on inheritance from Decimer Transfomer and Classifier which are both MIT license. 
 <br>
-
-### TODOs
-Removed for now.
 
 ### Uninstalling
 Should you want/need to uninstall, after removing any app folder and environment, check your homefolder for ".data" folder where Decimer stores its models, delete this folder as well.

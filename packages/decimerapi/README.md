@@ -9,6 +9,15 @@ Not required for the standalone version.
 ## Installation
 Should be handled from main level installation of the repo.
 
+## Inkscape optional requirement for EMF conversion
+If you want to convert EMF files as well, then Inkscape is required (if not present, this is automatically skipped).
+- mac:
+    brew install --cask inkscape
+- linux:
+    sudo apt-get install inkscape
+- windows:
+    download from official website: https://inkscape.org/release/
+
 ## Usage
 ```python
 from decimerapi.decimerapi import DecimerAPI

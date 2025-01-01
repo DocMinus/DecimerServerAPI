@@ -8,7 +8,7 @@ with open(os.path.join(setup_dir, "README.md"), "r") as fh:
 
 setup(
     name="decimerapi",
-    version="0.4.1",
+    version="0.5.0",
     author="Alexander Minidis",
     author_email="your_email@example.com",
     description="A wrapper module for decimer as used by API.",

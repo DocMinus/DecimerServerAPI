@@ -3,20 +3,26 @@ module: decimerapi.py
 @author: Alexander Minidis (DocMinus)
 
 license: MIT
-Copyright (c) 2024 DocMinus
+Copyright (c) 2024/25 DocMinus
 Tools for server usage, basically independet from used environment, only requires the server running somehwere
 
 working tools implementation, now as class to submitt a different port
 typo fixed; host added to __init__ method, allows to run not just locally
-V 0.4.1, 2024-12-30 Some doc cleanup. 
-Preparations of emf conversions, but this requires app level depencies, e.g. imagemagick, so not yet implemented 
+V 0.5.0, 2025-01-01 
+now automatic EMF to PNG conversion based on Inkscape presence. See readme for installation instructions.
+Also some minor improvements in error handling and status check.
 """
 
 import base64
 import imghdr
+import subprocess
 from pathlib import Path
+from shutil import which
 
 import requests
+
+# determine if Inkscape is installed. If not, EMF conversion will be disabled.
+INKSCAPE = True if which("inkscape") is not None else False
 
 
 class DecimerAPI:
@@ -31,14 +37,17 @@ class DecimerAPI:
             Initializes the DecimerAPI instance with the specified host and port, defaulting to localhost 8099.
 
         _is_valid_image_type(encoded_image: bytes) -> bool:
-            Checks if the base64-encoded image is of type JPG, PNG, GIF (EMF not yet supported).
+            Checks if the base64-encoded image is of type JPG, PNG, GIF, EMF.
+
+        _convert_emf2png(input_path: Path) -> Path:
+            Converts an EMF file to PNG using Inkscape.
 
         call_image2smiles_api(input_image: Path, hand_drawn: bool = False, classify_image: bool = True) -> str:
             Calls the DECIMER API to convert an image to a SMILES string.
                 input_image (Path): Path to the image file.
                 hand_drawn (bool): Boolean indicating if the image is hand-drawn.
                 classify_image (bool): Boolean indicating if the image should be classified.
-                Note that when using non-structure images, classifyt shoudl be set to TRUE!
+                Note that when using non-structure images, classifyt should be set to TRUE (default!
             Returns:
                 str: The SMILES string if the API call is successful, None otherwise.
     """
@@ -46,18 +55,34 @@ class DecimerAPI:
     def __init__(self, host: str = "localhost", port: int = 8099):
         self.DECIMER_URL = f"http://{host}:{port}"
 
-    def _is_valid_image_type(self, encoded_image: bytes) -> bool:
-        """Check if the base64-encoded image is of type JPG, PNG, GIF."""
-        image_type = imghdr.what(None, h=base64.b64decode(encoded_image))
-        return image_type in ["jpeg", "png", "gif"]  # "emf" not yet supported
+    def _is_valid_image_type(self, encoded_image: bytes) -> tuple[bool, bool]:
+        """Checks if the base64-encoded image is of type JPG, PNG, GIF or EMF.
+        Returns a tuple of two booleans: (is_emf, is_valid_image)
+        """
 
-    # def _convert_emf_to_png(self, encoded_image: bytes) -> bytes:
-    #     """Convert EMF image to PNG format."""
-    #     emf_image_data = base64.b64decode(encoded_image)
-    #     with Image(blob=emf_image_data) as img:
-    #         img.format = "png"
-    #         png_image_data = img.make_blob()
-    #     return base64.b64encode(png_image_data)
+        decoded_image = base64.b64decode(encoded_image)
+        image_type = imghdr.what(None, h=decoded_image)
+        # emf requires separate check, as imghdr does not support it
+        # could one check file ending? possibly, but not reliable
+        if INKSCAPE and image_type is None and decoded_image[:4] == b"\x01\x00\x00\x00":
+            image_type = "emf"
+
+        is_emf = image_type == "emf"
+        return is_emf, image_type in ["jpeg", "png", "gif", "emf"]
+
+    def _convert_emf2png(self, input_path: Path) -> Path:
+        """Converts an EMF file to PNG using Inkscape."""
+        output_path = input_path.with_suffix(".png")
+        subprocess.run(
+            [
+                "inkscape",
+                str(input_path),
+                f"--export-filename={str(output_path)}",
+                "--export-type=png",
+            ],
+            check=True,
+        )
+        return output_path
 
     def call_image2smiles(
         self,
@@ -68,6 +93,7 @@ class DecimerAPI:
         """Calls decimer Server to convert an image to a SMILES string.
 
         Checks for correct image type and size before sending the image to the server.
+        Converts EMF images to PNG if Inkscape is installed.
         Args:
             input_image: Path (or string) to the image file
             hand_drawn: Boolean indicating if the image is hand-drawn
@@ -75,17 +101,26 @@ class DecimerAPI:
         """
         if isinstance(input_image, str):
             input_image = Path(input_image)
+
+        if input_image.stat().st_size > 4 * 1024 * 1024:
+            print("Error: Image file size is too large.")
+            return None  # return error would be better
+
         encoded_image = base64.b64encode(input_image.read_bytes()).decode("utf-8")
 
-        if len(encoded_image) > 4 * 1024 * 1024:
-            print("Image file size is too large.")
+        is_emf, is_valid_image = self._is_valid_image_type(encoded_image)
+
+        if not is_valid_image:
+            print(
+                "Error: Invalid image type. Only JPG, PNG, GIF and EMF are supported."
+            )
             return None  # return error would be better
 
-        if not self._is_valid_image_type(encoded_image):
-            print("Invalid image type. Only JPG, PNG, GIF are supported.")
-            return None  # return error would be better
-
-        image_type = imghdr.what(None, h=base64.b64decode(encoded_image))
+        if is_emf:
+            new_input_image = self._convert_emf2png(input_image)
+            encoded_image = base64.b64encode(new_input_image.read_bytes()).decode(
+                "utf-8"
+            )
 
         data = {
             "encoded_image": encoded_image,

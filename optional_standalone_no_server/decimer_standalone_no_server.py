@@ -8,7 +8,8 @@ V0.2.0 - following the decimer_server.py version
 
 Main difference: aside from no server, imagepath is used directly instead of base64 encoding
 
-!beware: this version does not check for large image sizes or correct file types as the server version does
+!beware: this version does not check for large image sizes or correct file types as the server version together with the API does
+!It also doesn't support emf files as the use of the API would, but is in principle possible.
 
 2024-12-22
 """
