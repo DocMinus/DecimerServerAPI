@@ -57,14 +57,20 @@ pip install ./packages/decimerapi/
 ``` 
 
 ### For local version (full install)
-Best results with python3.10, at least on Mac M models. Py 3.9 on Mac with gpu support doesn't seenm to work (for me), the non GPU version should be fine on any Py version.<br>
-Other python versions on Linux according to DECIMER authors should be fine?<br>
+Note, that due to Tensorflow not all pyton version on Mac or Win seem to work without issues, although on Linux all >=3.9 should be fine.<br>
+Esp. for Mac, if GPU usage is desired, 3.10.0 works best (for me).<br>
+
+#### Linux/Windows:
 ```shell
-conda create --name decimerserver python=3.10.0  # or other if you don't want/need Mac GPU support
+conda env create -f environment.yml
 conda activate decimerserver
 ```
-Linux/Windows: ```pip install -r requirements.txt``` <br>
-Mac Darwin/Silicon: ```pip install -r requirements_mac.txt``` <br>
+
+#### Mac Darwin/Silicone:
+```shell
+conda env create -f environment_mac.yml
+conda activate decimerserver
+```
 
 ## Usage
 ### Docker

@@ -1,0 +1,8 @@
+name: decimerserver
+channels:
+  - defaults
+dependencies:
+  - python=3.10.0
+  - pip
+  - pip:
+      - -r requirements_mac.txt

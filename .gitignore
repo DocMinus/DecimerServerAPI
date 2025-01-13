@@ -1,5 +1,5 @@
 # IDE and environment directories
-**/.idea/
+**/.idea
 **/__pycache__
 **/.ipynb_checkpoints
 **/image*.svg
@@ -9,9 +9,11 @@
 **/.conda
 **/.env
 **/.venv
-**/env/
-**/venv/
+**/env
+**/venv
 /.temp
+
+**/optional_standalone_no_server
 
 # installer files
 **/*egg-info

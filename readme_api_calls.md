@@ -17,7 +17,8 @@ print(smiles)
 
 
 # API calls without decimerapi
-should you want to use the local server directly, without using any package installs, here are 2 examples:<br>
+Should you want to use the local server directly, without using any api package usage, here are 2 examples:<br>
+## Python
 Check the server status:
 ```python
 import requests
@@ -49,4 +50,10 @@ else:
     response_json = response.json()
     analyzed_smiles = response_json["smiles"]
     print(analyzed_smiles)
+```
+
+## Curl
+To test the server, on cmd line use:
+```Shell
+curl -X GET "http://localhost:8099/"
 ```

@@ -128,30 +128,3 @@ if __name__ == "__main__":
 
     uvicorn.run(app, host="0.0.0.0", port=8099)
 
-    """
-    To test the server, on cmd line use:
-    Note, esp. for docker, the path you submitt depends on the volume (name) you mount.
-    curl -X POST "http://localhost:8099/image2smiles/" -d "temporaryfile=/yourpath/image.jpg" -d "is_hand_drawn=true"
-
-    http request would look like this:
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Test POST Request</title>
-    </head>
-    <body>
-        <form action="http://localhost:8099/image2smiles/" method="post">
-            <label for="temporaryfile">Temporary File Path:</label>
-            <input type="text" id="temporaryfile" name="temporaryfile" value="/yourpath/image.jpg"><br><br>
-            <label for="is_hand_drawn">Is Hand Drawn:</label>
-            <input type="checkbox" id="is_hand_drawn" name="is_hand_drawn" value="true"><br><br>
-            <input type="submit" value="Submit">
-        </form>
-    </body>
-    </html>
-
-    And in python:
-    url = "http://localhost:8099/image2smiles/"
-    data = {"temporaryfile": tempfilename, "is_hand_drawn": str(hand_drawn).lower()}
-    response = requests.post(url, data=data)
-    """
