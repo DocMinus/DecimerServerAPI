@@ -13,7 +13,6 @@
 **/venv
 /.temp
 
-**/optional_standalone_no_server
 
 # installer files
 **/*egg-info
@@ -41,15 +40,16 @@ gnurff*.py
 gnurff*.txt
 
 # Image files
-# allow images for examples to be uploaded to the repo
-# *.png
-# *.emf
-# *.gif
-# *.svg
-# *.jpg
-# *.jpeg
-# *.bmp
-
+*.png
+*.emf
+*.gif
+*.svg
+*.jpg
+*.jpeg
+*.bmp
+# keep these two for demo purposes
+!not_structure.gif
+!structure.png
 
 # macOS system files
 .DS_Store

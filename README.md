@@ -74,11 +74,21 @@ conda activate decimerserver
 
 ## Usage
 ### Docker
-`docker-compose up -d` to start the API server, ´docker-compose down´ to stop. <br>
+Edit the compose file for it to use the correct image, depending if you build it yourself or if you pulled it from dockerhub, then:<br>
+To start:
+```shell
+docker-compose up -d
+```
+And to stop:
+```shell
+docker-compose down 
+```
 (depending on your install it might be ´docker compose (space, no -))´.<br>
 
 ### Local (non docker) server version
-`python decimer_server.py`<br>
+```shell
+python decimer_server.py
+```
 
 ### Example usage
 The server runs on localhost:8099. This can be changed to ip-address:portnumber if you want to run another machine (or cloud even).<br>

@@ -6,12 +6,12 @@
 **/.vs
 **/.conda
 /.temp/*
-**/.env
-**/.venv
+**/.env/
+**/.venv/
 **/env/
 **/venv/
 **/.git
-**/lightning_logs
+optional_standalone_no_server/
 
 Makefile
 win_make.bat
@@ -19,6 +19,7 @@ README.md
 gnurff*.*
 tmp.txt
 Dockerfile*
+requirements_mac.txt
 *.yaml
 *.yml
 .git

@@ -4,20 +4,24 @@ Standalone for Decimer image to SMILES conversion
 
 license: MIT
 Copyright (c) 2024 DocMinus
-V0.2.0 - following the decimer_server.py version
+V0.2.1 - following the decimer_server.py version
 
 Main difference: aside from no server, imagepath is used directly instead of base64 encoding
 
 !beware: this version does not check for large image sizes or correct file types as the server version together with the API does
 !It also doesn't support emf files as the use of the API would, but is in principle possible.
+!Remember: startup time may be long due to model loading
 
-2024-12-22
+2024-12-22 / 2025-01-15
 """
+
+from pathlib import Path
 
 from DECIMER.decimer import *
 from decimer_image_classifier import DecimerImageClassifier
 
 decimer_classifier = DecimerImageClassifier()
+IC_TRESHOLD: float = 0.3
 
 
 def _getdecimersmiles(
@@ -45,7 +49,7 @@ def _getdecimersmiles(
 
 
 def predict_smiles(
-    image_path: str, is_hand_drawn: bool = False, classify_image: bool = True
+    image_name: str, is_hand_drawn: bool = False, classify_image: bool = True
 ) -> str:
     """
     This function reads the image file from the provided path and does the conversion to SMILES.
@@ -56,13 +60,13 @@ def predict_smiles(
     """
 
     if classify_image:
-        if decimer_classifier.get_classifier_score(image_path) < 0.3:
-            decoded_image = config.decode_image(image_path)
+        if decimer_classifier.get_classifier_score(image_name) < IC_TRESHOLD:
+            decoded_image = config.decode_image(image_name)
             smiles = _getdecimersmiles(decoded_image, is_hand_drawn)
             if smiles is not None:
                 return smiles
     else:
-        decoded_image = config.decode_image(image_path)
+        decoded_image = config.decode_image(image_name)
         smiles = _getdecimersmiles(decoded_image, is_hand_drawn)
         if smiles is not None:
             return smiles
@@ -71,8 +75,11 @@ def predict_smiles(
 
 
 def main():
+    current_directory = Path(__file__).resolve()
+    # 1 for folder level above (0 for same level)
+    input_image = str(current_directory.parents[1] / "structure.png")
     smiles = predict_smiles(
-        "/Users/a/dev/DecimerAPI/structure.png",
+        input_image,
         is_hand_drawn=False,
         classify_image=True,
     )
