@@ -11,7 +11,7 @@
 **/env/
 **/venv/
 **/.git
-optional_standalone_no_server/
+example_usage/
 
 Makefile
 win_make.bat

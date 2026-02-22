@@ -76,8 +76,7 @@ def predict_smiles(
 
 def main():
     current_directory = Path(__file__).resolve()
-    # 1 for folder level above (0 for same level)
-    input_image = str(current_directory.parents[1] / "structure.png")
+    input_image = str(current_directory.parents[0] / "structure.png")
     smiles = predict_smiles(
         input_image,
         is_hand_drawn=False,

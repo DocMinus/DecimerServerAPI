@@ -36,7 +36,7 @@ This package is an extension of [DECIMER V2](https://github.com/Kohulan/DECIMER-
 - Instead of the true/false readout, a classifier score of <0.3 is used which allows reactions to still be classified as structures and thus not sorted out.
 - The original package wasn't intended for reaction schemes, but that tweak seems to make it work with reactions as well. <br>
   Change that value in "decimer_server.py" (`IC_THRESHOLD`) as you see fit if it doesn't work well for you.
-- Furhtermore, removed an unnecessary save_image command, and changed the keras calls to tf.keras
+- Furthermore, removed an unnecessary save_image command, and changed the keras calls to tf.keras
 
 ## Installation
 
@@ -56,6 +56,10 @@ Build and start locally:
 ```shell
 docker compose up -d --build
 ```
+depending in your system it could alternatively be:
+```shell
+docker-compose up -d --build
+```
 
 Or pull the pre-built image from dockerhub instead of building locally:
 
@@ -68,11 +72,14 @@ Then edit `docker-compose.yml` to switch the `image:` line to `docker.io/docminu
 \_important to note: the docker version unfortunately doesn't support mac-gpu since docker is solely linux based\_<br>
 \_your linux/win GPU support depends on your Cuda and other environment installations\_<br>
 
-To access via the API (recommended), install into any python version (>= 3.9 for linux max, 3.9/3.10 for Mac) that you might have: <br>
+To access via the python API (recommended), install into any python version (>= 3.9 for linux / 3.10 for Mac) that you might have: <br>
 
 ```shell
 pip install ./packages/decimerapi/
 ```
+
+This is not necessary if you want to use plain http request commands (example script provide).
+
 
 ### For local version (full install)
 
@@ -124,12 +131,16 @@ docker compose down
 ```shell
 python decimer_server.py
 ```
+(since we are using UV you can also do `uv run` insteald of `python`)
 
 ### Example usage
 
 The server runs on localhost:8099. This can be changed to ip-address:portnumber if you want to run another machine (or cloud even).<br>
 `decimer_example.py` demonstrates calling the server via the `decimerapi` HTTP client — it works with both the docker and local server versions, and only requires `decimerapi` installed locally (not the full `uv sync`).<br>
 Should you want to run a serverless app, check the [optional_standalone_no_server](./optional_standalone_no_server) folder.
+
+### Example code
+Can be found under `example_usage` covering different install scenarios.
 
 ### Important caveat
 
@@ -138,7 +149,10 @@ This seems to have to do with the decimer image to smiles implementation and is 
 
 ### Of note:
 
-<span style="background-color: white; color:blue; font-weight:bold;">First time start up might take a few minutes due to model download! (depending on your connection speed; this happens only once).</span>
+<span style="background-color: white; color:blue; font-weight:bold;">Very first time start up might take a few minutes due to model download! (depending on your connection speed; this happens only once).</span><br>
+<span style="background-color: white; color:blue; font-weight:bold;">Calling the recognition function initially might take some time, but once submitting batches, it will be much much faster.</span>
+
+
 
 ### EMF support (optional)
 

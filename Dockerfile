@@ -1,9 +1,6 @@
 # Description: Dockerfile to build a docker image for the DECIMER Servers
 # Since linux kernel based, no mac-gpu support unfortunately
 #
-# A two stage builder leading to a nearly 18% reduced image size, but a bit more complex.
-# Could potentially be optimized even further?
-#
 ## -------- Production Stage ----------##
 FROM python:3.10-slim-bullseye AS builder
 
