@@ -5,7 +5,7 @@
 # Could potentially be optimized even further?
 #
 ## -------- Production Stage ----------##
-FROM python:3.11.9-slim-bullseye AS builder
+FROM python:3.10-slim-bullseye AS builder
 
 RUN apt-get update && apt-get install -y\
     build-essential && \
@@ -16,19 +16,25 @@ RUN apt-get update && apt-get install -y\
 # the application crashes without emitting any logs due to buffering.
 ENV PYTHONUNBUFFERED=1
 
-RUN python -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
-
-# Set the working directory to /app and copy all the files (requirements.txt, decimerapiapp.py, decimer_ic) to /app
+# Set the working directory to /app and copy all the files
 WORKDIR /app
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --trusted-host pypi.python.org --no-cache-dir -r requirements.txt
+# Install via uv workspace; --no-editable copies package files into venv so source can be removed
+# UV_PYTHON_PREFERENCE=only-system forces uv to use the container's Python rather than downloading
+# its own, which would break venv symlinks in the production stage.
+RUN pip install uv
+ENV UV_PROJECT_ENVIRONMENT=/opt/venv
+ENV UV_PYTHON_PREFERENCE=only-system
+ENV PATH="/opt/venv/bin:$PATH"
+RUN uv sync --no-dev --no-editable
+
+# Verify the installation of the packages
+RUN uv pip list
 RUN rm -rf /app/packages
 
 ## -------- Production Stage ----------##
-FROM python:3.11.9-slim-bullseye AS production
+FROM python:3.10-slim-bullseye AS production
 RUN apt-get update && apt-get install -y\
     libgl1-mesa-glx libglib2.0-0 && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -56,9 +62,6 @@ EXPOSE 8099
 # Define environment variable
 ENV NAME=app
 ENV PYTHONPATH=/app
-
-# Verify the installation of the packages
-RUN python -m pip list
 
 # Run decimer_server.py when the container launches
 CMD ["python", "decimer_server.py"]

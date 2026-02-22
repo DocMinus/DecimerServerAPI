@@ -1,3 +1,32 @@
 [build-system]
 requires = ["setuptools>=64", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "decimer_image_classifier"
+dynamic = ["version"]
+description = "DECIMER Image Classifier based on EfficientNetB0. Adapted for standalone use."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "Isabel Agea", email = "Maria.Isabel.Agea.Lorente@vscht.cz" },
+]
+requires-python = ">=3.8"
+dependencies = ["tensorflow>=2.11", "Pillow"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/Iagea/DECIMER-Image-Classifier"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.setuptools.package-data]
+"decimer_image_classifier" = ["model/*", "model/**/*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "decimer_image_classifier.__version__" }

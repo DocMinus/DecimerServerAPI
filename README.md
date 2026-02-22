@@ -49,20 +49,26 @@ You have the choice of three versions, or all, depening on your needs.
 
 ### For docker version
 
-Requires docker... doh!<br>
-Windows cmd: `win_make.bat`<br>
-Mac/Linux: `Make build`<br>
-Alternatively, a readily available dockerhub image can be pulled instead:<br>
+Requires Docker (with Compose).<br>
+
+Build and start locally:
+
+```shell
+docker compose up -d --build
+```
+
+Or pull the pre-built image from dockerhub instead of building locally:
 
 ```shell
 docker pull docminus/decimer_api
 ```
 
-Note that building locally will make smaller images!<br>
+Then edit `docker-compose.yml` to switch the `image:` line to `docker.io/docminus/decimer_api:latest` and run `docker compose up -d`.<br>
 <br>
-\_important to note: the docker version unfortunately doesn't support mac-gpu since docker is solely linux based\*<br>
-\_your linux/win GPU support depends on your Cuda and other environment installations\*<br>
-To access via the API (recommended), install into any python version (>= 3.8) you might have: <br>
+\_important to note: the docker version unfortunately doesn't support mac-gpu since docker is solely linux based\_<br>
+\_your linux/win GPU support depends on your Cuda and other environment installations\_<br>
+
+To access via the API (recommended), install into any python version (>= 3.9 for linux max, 3.9/3.10 for Mac) that you might have: <br>
 
 ```shell
 pip install ./packages/decimerapi/
@@ -70,41 +76,48 @@ pip install ./packages/decimerapi/
 
 ### For local version (full install)
 
-Note, that due to Tensorflow not all pyton version on Mac or Win seem to work without issues, although on Linux all >=3.9 should be fine.<br>
-Esp. for Mac, if GPU usage is desired, 3.10.0 works best (for me).<br>
+Note, that due to Tensorflow not all Python versions on Mac or Win seem to work without issues, although on Linux all >=3.9 should be fine.<br>
+Esp. for Mac, Python 3.10 works best (for me) — this is pinned automatically via the `.python-version` file.
 
-#### Linux/Windows:
+[uv](https://docs.astral.sh/uv/) is required. Quickest: `pip install uv`. Alternatively `brew install uv` (Mac/Linux) or see the [uv docs](https://docs.astral.sh/uv/getting-started/installation/) for other options.
+
+#### All platforms:
 
 ```shell
-conda env create -f environment.yml
-conda activate decimerserver
+uv sync
 ```
 
-#### Mac Darwin/Silicone:
+This creates a `.venv` using Python 3.10 and installs all dependencies (including the local `decimer_image_classifier` and `decimerapi` packages) in one step.
+
+#### Mac Darwin/Silicon — GPU support (optional):
+
+The base install above uses standard `tensorflow` (CPU only on Mac). To enable Metal GPU acceleration, additionally run:
 
 ```shell
-conda env create -f environment_mac.yml
-conda activate decimerserver
+uv pip install tensorflow-macos==2.15.0 tensorflow-metal==1.1.0
+```
+
+Then activate and run with:
+
+```shell
+source .venv/bin/activate
 ```
 
 ## Usage
 
 ### Docker
 
-Edit the compose file for it to use the correct image, depending if you build it yourself or if you pulled it from dockerhub, then:<br>
 To start:
 
 ```shell
-docker-compose up -d
+docker compose up -d
 ```
 
-And to stop:
+To stop:
 
 ```shell
-docker-compose down
+docker compose down
 ```
-
-(depending on your install it might be ´docker compose (space, no -))´.<br>
 
 ### Local (non docker) server version
 
@@ -115,7 +128,7 @@ python decimer_server.py
 ### Example usage
 
 The server runs on localhost:8099. This can be changed to ip-address:portnumber if you want to run another machine (or cloud even).<br>
-The `python decimer_example.py` shows how to call the server, works for both, docker and (local) server versions.<br>
+`decimer_example.py` demonstrates calling the server via the `decimerapi` HTTP client — it works with both the docker and local server versions, and only requires `decimerapi` installed locally (not the full `uv sync`).<br>
 Should you want to run a serverless app, check the [optional_standalone_no_server](./optional_standalone_no_server) folder.
 
 ### Important caveat

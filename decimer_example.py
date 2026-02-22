@@ -1,5 +1,7 @@
 """
 Example code for using the DECIMER Server & API to convert an image to SMILES.
+Only requires `decimerapi` installed locally — no full environment install needed.
+Works with both the docker server and the local server version.
 @author: Alexander Minidis (DocMinus)
 
 license: MIT

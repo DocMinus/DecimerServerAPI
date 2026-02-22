@@ -3,17 +3,25 @@ For details check the [Main README](../README.md)
 
 ## Installation
 If you haven't followed the main readme file, here a recap:<br>
-Best results with python3.10, at least on Mac M models if you want to use GPU support.<br>
-Other python versions on Linux according to DECIMER authors should be fine.<br>
+Best results with Python 3.10, at least on Mac M models if you want to use GPU support.<br>
+Other Python versions on Linux according to DECIMER authors should be fine.<br>
+
+[uv](https://docs.astral.sh/uv/) is required. Quickest: `pip install uv`. Alternatively `brew install uv` (Mac/Linux) or see the [uv docs](https://docs.astral.sh/uv/getting-started/installation/) for other options.<br>
+
+From the **root of the repository**, run:
+
 ```shell
-conda create --name decimerapi python=3.10.0
-conda activate decimerapi
+uv sync
+source .venv/bin/activate
 ```
-Linux/Windows: ```pip install -r requirements.txt``` <br>
-Mac Darwin/Silicon: ```pip install -r requirements_mac.txt``` <br>
-<br>
-Finally (from top level of this repo): ```python ./packages/decimer_ic/setup.py install``` 
-<br>
+
+This creates a `.venv` using Python 3.10 (pinned via `.python-version`) and installs all dependencies including the local classifier package.
+
+#### Mac Darwin/Silicon — GPU support (optional):
+
+```shell
+uv pip install tensorflow-macos==2.15.0 tensorflow-metal==1.1.0
+```
 
 ## Running
 `python decimer_standalone_no_server.py`<br>

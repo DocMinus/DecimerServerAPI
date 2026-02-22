@@ -2,7 +2,7 @@
 name = "decimer-server"
 version = "0.2.1"
 description = "DECIMER image-to-SMILES FastAPI server"
-requires-python = ">=3.9"
+requires-python = ">=3.9,<3.12"
 dependencies = [
     "uvicorn==0.32.1",
     "fastapi==0.115.5",

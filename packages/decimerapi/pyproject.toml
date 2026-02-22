@@ -1,3 +1,24 @@
 [build-system]
 requires = ["setuptools>=64", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "decimerapi"
+dynamic = ["version"]
+description = "Client wrapper for the DECIMER image-to-SMILES API server."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Alexander Minidis" }]
+requires-python = ">=3.9"
+dependencies = ["requests"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.setuptools.dynamic]
+version = { attr = "decimerapi.__version__" }

@@ -2,8 +2,12 @@
 
 services:
   decimer_api:
+    platform: linux/amd64 # tensorflow has no linux/arm64 wheels; amd64 runs via Rosetta on Apple Silicon
+    build:
+      context: .
+      dockerfile: Dockerfile
     #image: docker.io/docminus/decimer_api:latest # for dockerhub image
-    image: decimer_api:latest # for locally built image
+    image: decimer_api:latest # for locally built image; also used as the tag for the build above
     container_name: decimerapi
     ports:
       - "8099:8099"

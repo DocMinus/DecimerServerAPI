@@ -1,10 +1,27 @@
 # Updated to use buildx for multi-arch support
+# Copy .env.example to .env and set your DOCKER_USER there (never committed to git)
+-include .env
+
 IMAGE_NAME = decimer_api
-DOCKER_USER = docminus
 
-.PHONY: all build buildx tag tagpush push
+# Set DOCKER_USER before pushing, e.g.:
+#   export DOCKER_USER=yourname
+#   make push
+# or inline:
+#   make push DOCKER_USER=yourname
+DOCKER_USER ?=
 
-all: buildx tagpush push
+.PHONY: all build buildx tag push publish check-docker-user
+
+all: buildx
+
+publish: buildx tag push
+
+check-docker-user:
+	@if [ -z "$(DOCKER_USER)" ]; then \
+		echo "ERROR: DOCKER_USER is not set. Run: make push DOCKER_USER=yourname! NOTE: Optional, only required for dockerhub pushing."; \
+		exit 1; \
+	fi
 
 build:
 	@echo "\n------------------------------------"
@@ -20,19 +37,13 @@ buildx:
 	@echo "------------------------------------\n"
 	@echo "Use 'docker-compose up -d' to start the container"
 
-tag:
-	@echo "\n------------------------------------"
-	@echo "Tagging the image $(IMAGE_NAME):"
-	docker push $(DOCKER_USER)/$(IMAGE_NAME):latest
-	@echo "------------------------------------\n"
-
-tagpush:
+tag: check-docker-user
 	@echo "\n------------------------------------"
 	@echo "Tagging the image $(IMAGE_NAME):"
 	docker tag $(IMAGE_NAME) docker.io/$(DOCKER_USER)/$(IMAGE_NAME):latest
 	@echo "------------------------------------\n"
 
-push:
+push: check-docker-user
 	@echo "\n------------------------------------"
 	@echo "Pushing the image $(IMAGE_NAME):"
 	docker push docker.io/$(DOCKER_USER)/$(IMAGE_NAME):latest
