@@ -1,14 +1,9 @@
-# Updated to use buildx for multi-arch support
-# Copy .env.example to .env and set your DOCKER_USER there (never committed to git)
+# Updated to use buildx for amd64 only — tensorflow has no linux/arm64 wheels
+# push to dockerhub only if DOCKER_USER defined either via .env or
+#   make push DOCKER_USER=yourname
 -include .env
 
 IMAGE_NAME = decimer_api
-
-# Set DOCKER_USER before pushing, e.g.:
-#   export DOCKER_USER=yourname
-#   make push
-# or inline:
-#   make push DOCKER_USER=yourname
 DOCKER_USER ?=
 
 .PHONY: all build buildx tag push publish check-docker-user
@@ -33,7 +28,7 @@ build:
 buildx:
 	@echo "\n------------------------------------"
 	@echo "Building the image $(IMAGE_NAME):"
-	docker buildx build --platform linux/amd64,linux/arm64 -t $(IMAGE_NAME) .
+	docker buildx build --platform linux/amd64 -t $(IMAGE_NAME) .
 	@echo "------------------------------------\n"
 	@echo "Use 'docker-compose up -d' to start the container"
 
