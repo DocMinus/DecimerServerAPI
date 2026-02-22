@@ -1,0 +1,20 @@
+[project]
+name = "decimer-server"
+version = "0.2.1"
+description = "DECIMER image-to-SMILES FastAPI server"
+requires-python = ">=3.9"
+dependencies = [
+    "uvicorn==0.32.1",
+    "fastapi==0.115.5",
+    "python-multipart==0.0.19",
+    "decimer==2.7.1",
+    "decimer_image_classifier",
+    "decimerapi",
+]
+
+[tool.uv.workspace]
+members = ["packages/decimer_ic", "packages/decimerapi"]
+
+[tool.uv.sources]
+decimer_image_classifier = { workspace = true }
+decimerapi = { workspace = true }
