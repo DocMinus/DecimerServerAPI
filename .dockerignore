@@ -1,3 +1,4 @@
+# IDE stuff
 **/.idea
 **/__pycache__
 **/.ipynb_checkpoints
@@ -11,17 +12,18 @@
 **/env/
 **/venv/
 **/.git
+**/.ruff_cache
 example_usage/
+**/*egg-info
+**/*.egg
+**/dist
+**/build
 
+# single files
 Makefile
-win_make.bat
-README.md
 gnurff*.*
 tmp.txt
 Dockerfile*
-requirements_mac.txt
-*.yaml
-*.yml
 .git
 .gitignore
 .dockerignore
@@ -39,9 +41,21 @@ result.tmp
 *.jpg
 *.jpeg
 *.bmp
-*.DS_Store
 
-**/*egg-info
-**/*.egg
-**/dist
-**/build
+# Dependency files 
+uv.lock
+
+# Docker compose 
+docker-compose.yml
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Other mac files
+Icon
+._*
+.Spotlight-V100
+.Trashes
+.com.apple.timemachine.donotpresent

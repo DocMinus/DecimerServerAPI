@@ -9,7 +9,7 @@ description = "Client wrapper for the DECIMER image-to-SMILES API server."
 readme = "README.md"
 license = { text = "MIT" }
 authors = [{ name = "Alexander Minidis" }]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = ["requests"]
 classifiers = [
     "Programming Language :: Python :: 3",

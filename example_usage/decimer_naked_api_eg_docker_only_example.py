@@ -23,7 +23,8 @@ except requests.exceptions.HTTPError as e:
 
 
 # load image, encode it, and send it to the server
-input_image = "structure.png"
+current_file_path = Path(__file__).resolve()
+input_image = current_file_path.parent / "structure.png"
 hand_drawn = False
 classify_image = False
 

@@ -25,7 +25,7 @@ decimer_api = DecimerAPI()
 smiles = decimer_api.call_image2smiles(input_image)
 print(smiles)
 ```
-Default values for hand_drawn and classify_image are False, respectively True: i.e. `decimer_api.call_image2smiles(input_image, hand_drawn=False, classifiy_image=True)`
+Default values for hand_drawn and classify_image are False, respectively True: i.e. `decimer_api.call_image2smiles(input_image, hand_drawn=False, classify_image=True)`
 
 You can set a different portnumber or IP address should you change from default localhost:8099 with `DecimerAPI("192.x.x.x", 8099)`.
 

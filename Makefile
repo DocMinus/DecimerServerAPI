@@ -20,6 +20,7 @@ check-docker-user:
 
 build:
 	@echo "\n------------------------------------"
+	@echo "WARNING: 'make build' is deprecated. Use 'make buildx' instead."
 	@echo "Building the image $(IMAGE_NAME):"
 	docker build -t $(IMAGE_NAME) .
 	@echo "------------------------------------\n"

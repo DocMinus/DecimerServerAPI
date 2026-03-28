@@ -5,8 +5,13 @@
 
 import os
 from copy import copy
-from PIL import Image
+from typing import TYPE_CHECKING
+
 import tensorflow as tf
+from PIL import Image
+
+if TYPE_CHECKING:
+    from PIL.Image import Image as PilImage
 
 # import tensorflow.keras as keras
 
@@ -69,8 +74,8 @@ class DecimerImageClassifier:
         return score.numpy()[0]
 
     def _get_resized_grayscale_image(
-        self, img: Image, desired_size: int = 224
-    ) -> Image:
+        self, img: "PilImage", desired_size: int = 224
+    ) -> "PilImage":
         """
         This function takes a PIL.Image object, converts it to grayscale and
         resizes it to a square image of length/height a given desired_size.
@@ -88,7 +93,9 @@ class DecimerImageClassifier:
         resized_grayscale_image = self._get_resized_image(grayscale_image, desired_size)
         return resized_grayscale_image
 
-    def _get_resized_image(self, img: Image, desired_size: int = 224) -> Image:
+    def _get_resized_image(
+        self, img: "PilImage", desired_size: int = 224
+    ) -> "PilImage":
         """
         This function takes a PIL.Image object, resizes it to a
         square image of length/height a given desired_size.
@@ -113,7 +120,7 @@ class DecimerImageClassifier:
         )
         return resized_image
 
-    def _get_RGB_grayscale_image(self, img: Image) -> Image:
+    def _get_RGB_grayscale_image(self, img: "PilImage") -> "PilImage":
         """
         This function takes a PIL.Image object, and returns the
         same Image object as a grayscale RGB image (no colours,

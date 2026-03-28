@@ -1,5 +1,3 @@
-# version: '3.3' # use only for older docker compose versions
-
 services:
   decimer_api:
     platform: linux/amd64 # tensorflow has no linux/arm64 wheels; amd64 runs via Rosetta on Apple Silicon

@@ -89,7 +89,7 @@ class DecimerAPI:
         input_image: Path | str,
         hand_drawn: bool = False,
         classify_image: bool = True,
-    ) -> str:
+    ) -> str | None:
         """Calls decimer Server to convert an image to a SMILES string.
 
         Checks for correct image type and size before sending the image to the server.
