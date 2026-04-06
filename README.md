@@ -14,34 +14,33 @@ Supports Mac Silicon (M1-4) GPU acceleration, Linux/Windows TensorFlow GPU usage
 - Fast recognition via server-based one-time model loading
 - Easy Python API integration
 
-## Quick Start
+## Start Here
 
-### Docker (Recommended)
+If you are new, choose one of these two paths:
+
+### Path A: Docker (recommended)
 
 ```shell
 docker compose up -d --build
 ```
 
-Then install the Python client:
-
-```shell
-pip install ./packages/decimerapi/
-```
-
-### Local Server
+### Path B: No Docker (local Python)
 
 ```shell
 uv sync
 uv run python decimer_server.py
 ```
 
-The server runs on `localhost:8099`. See [`example_usage`](./example_usage) for complete examples.
+Server URL in both cases: `http://localhost:8099`
+
+For details and troubleshooting, use the docs linked below.
 
 ## Documentation
 
-- [Installation Guide](./INSTALLATION.md) - Docker, local, and standalone setup
-- [API Endpoints](./API_ENDPOINTS.md) - Endpoint definitions, schemas, and error semantics
-- [API Calls](./readme_api_calls.md) - Practical HTTP and Python usage examples
+- [Installation Guide](./INSTALLATION.md) - Guided setup (Docker or no-Docker), plus optional advanced topics
+- [API Endpoints](./API_ENDPOINTS.md) - Canonical endpoint contract (request/response/error semantics)
+- [API Examples](./example_usage/API_EXAMPLES.md) - Practical request examples (Python and curl)
+- [Example Scripts](./example_usage/README.md) - Which script to use by audience and scenario
 - [Differences](./DIFFERENCES.md) - Changes from original DECIMER packages
 - [FAQ](./FAQ.md) - Common questions and important caveats
 

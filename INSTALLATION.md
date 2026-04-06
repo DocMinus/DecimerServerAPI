@@ -1,10 +1,11 @@
 # Installation
 
-Choose one of three installation methods depending on your needs:
+Choose one of two primary paths:
 
 - **Docker** - Recommended for maximum compatibility across different Python environments
-- **Local server** - Run the server directly without Docker
-- **Standalone** - Serverless usage (see [`optional_standalone_no_server`](./optional_standalone_no_server) folder)
+- **Local server (no Docker)** - Run the server directly with `uv`
+
+Advanced/optional modes (for experienced users) are listed later in this file.
 
 ## Docker (Recommended)
 
@@ -57,7 +58,7 @@ This is not required if you want to use plain HTTP requests.
 
 ---
 
-## Local Installation
+## Local Installation (No Docker)
 
 ### Requirements
 
@@ -76,6 +77,7 @@ Or simply: `pip install uv` in the existing environment
 
 ```shell
 uv sync
+uv run python decimer_server.py
 ```
 
 This creates a `.venv` using Python 3.1x and installs all dependencies (including `decimer_image_classifier` and `decimerapi` packages).
@@ -95,6 +97,34 @@ Then activate the environment:
 ```shell
 source .venv/bin/activate
 ```
+
+---
+
+## Advanced / Optional Topics
+
+### Standalone Mode (No Server)
+
+Use the standalone script in `example_usage` if you explicitly want serverless local inference:
+
+- `example_usage/decimer_standalone_no_server.py`
+
+For most users, the server mode above is simpler to operate and integrate.
+
+### Python Client Package
+
+If you want the lightweight client wrapper in a separate environment:
+
+```shell
+pip install ./packages/decimerapi/
+```
+
+This is optional; direct HTTP calls work without it.
+
+### API Examples by Experience Level
+
+- Beginner local client usage: `example_usage/decimer_server_usage_example.py`
+- Direct raw API call (Docker/local server): `example_usage/decimer_naked_api_eg_docker_only_example.py`
+- Standalone, no server mode: `example_usage/decimer_standalone_no_server.py`
 
 ---
 
