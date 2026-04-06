@@ -2,7 +2,9 @@
 
 An extension of [DECIMER V2](https://github.com/Kohulan/DECIMER-Image_Transformer) including the [DECIMER Image Classifier](https://github.com/Iagea/DECIMER-Image-Classifier) — served as an API via Docker, local server, or standalone script.
 
-Supports Mac Silicon (M1-4) GPU acceleration, Linux/Windows with CUDA, and reaction scheme image classification.
+Supports Mac Silicon (M1-4) GPU acceleration, Linux/Windows TensorFlow GPU usage when the host is configured accordingly, and reaction scheme image classification.
+
+> GPU availability is environment-dependent. On Linux/Windows with NVIDIA hardware, GPU acceleration is used when system drivers/runtime are correctly set up; otherwise processing falls back to CPU.
 
 ## Features
 
@@ -42,6 +44,10 @@ The server runs on `localhost:8099`. See [`example_usage`](./example_usage) for 
 - [API Calls](./readme_api_calls.md) - Practical HTTP and Python usage examples
 - [Differences](./DIFFERENCES.md) - Changes from original DECIMER packages
 - [FAQ](./FAQ.md) - Common questions and important caveats
+
+## Contributions
+Docminus
+For V0.3.0, hardening of endpoints and usage for mcp tools, OpenCode support.
 
 ## License
 

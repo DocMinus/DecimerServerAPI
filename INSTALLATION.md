@@ -51,7 +51,9 @@ This is not required if you want to use plain HTTP requests.
 ### GPU Notes
 
 - Docker doesn't support Mac GPU (Docker is Linux-only)
-- Linux/Windows GPU support depends on your CUDA installation
+- Linux/Windows GPU support depends on host NVIDIA/CUDA runtime setup
+- This project does not auto-provision NVIDIA drivers/CUDA; TensorFlow uses GPU only if your system is already configured for it
+- If GPU runtime is unavailable, TensorFlow falls back to CPU automatically
 
 ---
 
@@ -78,12 +80,14 @@ uv sync
 
 This creates a `.venv` using Python 3.1x and installs all dependencies (including `decimer_image_classifier` and `decimerapi` packages).
 
-### Mac Silicon GPU Support (Optional)
+On Apple Silicon (`darwin` + `arm64`), this project now pins `tensorflow-macos==2.15.0` and includes `tensorflow-metal` automatically via `pyproject.toml`, so no extra TensorFlow install step is required after `uv sync`.
 
-The base install uses standard `tensorflow` (CPU only on Mac). To enable Metal GPU acceleration:
+### Mac Silicon GPU Support (Optional Recovery)
+
+If your environment was created before the TensorFlow platform pins were added, or if TensorFlow import fails after sync, reinstall the Mac runtime packages:
 
 ```shell
-uv pip install tensorflow-macos==2.15.0 tensorflow-metal==1.1.0
+uv pip install tensorflow-macos==2.15.0 tensorflow-metal>=1.1.0
 ```
 
 Then activate the environment:

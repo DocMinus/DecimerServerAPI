@@ -8,6 +8,8 @@ dependencies = [
     "fastapi==0.115.5",
     "python-multipart==0.0.19",
     "decimer==2.7.1",
+    "tensorflow-macos==2.15.0; sys_platform == 'darwin' and platform_machine == 'arm64'",
+    "tensorflow-metal>=1.1.0; sys_platform == 'darwin' and platform_machine == 'arm64'",
     "decimer_image_classifier",
     "decimerapi",
     "grpcio>=1.60.0,!=1.78.1",
