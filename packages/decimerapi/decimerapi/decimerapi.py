@@ -4,9 +4,9 @@ module: decimerapi.py
 
 license: MIT
 Copyright (c) 2024/25 DocMinus
-Tools for server usage, basically independet from used environment, only requires the server running somehwere
+Tools for server usage, basically independent from used environment, only requires the server running somewhere
 
-working tools implementation, now as class to submitt a different port
+working tools implementation, now as class to submit a different port
 typo fixed; host added to __init__ method, allows to run not just locally
 V 0.6.0, 2026-04-06
 now automatic EMF to PNG conversion based on Inkscape presence. See readme for installation instructions.
@@ -149,7 +149,7 @@ class DecimerAPI:
         hand_drawn: bool = False,
         classify_image: bool = True,
     ) -> str | None:
-        """Calls decimer Server to convert an image to a SMILES string.
+        """Calls DECIMER server to convert an image to a SMILES string.
 
         Checks for correct image type and size before sending the image to the server.
         Converts EMF images to PNG if Inkscape is installed.
@@ -175,7 +175,7 @@ class DecimerAPI:
         hand_drawn: bool = False,
         classify_image: bool = True,
     ) -> dict[str, Any] | None:
-        """Calls decimer Server and returns the full response payload.
+        """Calls DECIMER server and returns the full response payload.
 
         Keeps parity with server metadata fields while preserving `call_image2smiles`
         for backwards-compatible smiles-only usage.

@@ -222,7 +222,7 @@ async def general_exception_handler(request, exc):
     return JSONResponse(
         status_code=500,
         content={
-            "message": "An unspecified general eerror in image2smiles API occurred."
+            "message": "An unspecified general error in image2smiles API occurred."
         },
     )
 
@@ -244,7 +244,7 @@ async def image_to_smiles(
     This function uses encoded image, makes a temporary file and does the conversion to SMILES.
     Here, the image is first checked if it is a chemical structure.
 
-    encoded_image: bae64 encoded image (as string)
+    encoded_image: base64 encoded image (as string)
     is_hand_drawn: Boolean indicating if the image is hand-drawn
     classify_image: Boolean indicating if the image should be classified
     """
