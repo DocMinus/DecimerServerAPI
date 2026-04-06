@@ -39,8 +39,7 @@ tmp.tmp
 temp.tmp
 result.tmp
 status.txt
-gnurff*.py 
-gnurff*.txt
+gnurff*.*
 
 # Image files
 *.png
