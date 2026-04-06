@@ -14,22 +14,17 @@ Requires Docker with Compose.
 ### Build and start locally
 
 ```shell
-docker compose up -d --build
+# Use pre-built Docker Hub image (default)
+docker compose up -d
+
+# Build locally from this repository
+docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
 ```
 
-Or on older systems:
+(Your system might use `docker-compose` instead)
 
-```shell
-docker-compose up -d --build
-```
 
-### Or pull pre-built image
-
-```shell
-docker pull docminus/decimer_api
-```
-
-Then edit `docker-compose.yml` to switch the `image:` line to `docker.io/docminus/decimer_api:latest` and run `docker compose up -d`.
+`docker-compose.yml` is now the Docker Hub default. `docker-compose.local.yml` is an override for local builds.
 
 Alternatively, use the Makefile for convenience:
 

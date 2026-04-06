@@ -21,7 +21,11 @@ If you are new, choose one of these two paths:
 ### Path A: Docker (recommended)
 
 ```shell
-docker compose up -d --build
+# Use pre-built Docker Hub image (default compose file)
+docker compose up -d
+
+# Build locally from this repository
+docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
 ```
 
 ### Path B: No Docker (local Python)

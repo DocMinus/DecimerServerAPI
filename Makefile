@@ -1,6 +1,6 @@
 # Updated to use buildx for amd64 only — tensorflow has no linux/arm64 wheels
 # push to dockerhub only if DOCKER_USER defined either via .env or
-#   make push DOCKER_USER=yourname
+# if you want to push to your own dockerhub, edit in .env DOCKER_USER=yourname
 -include .env
 
 IMAGE_NAME = decimer_api
