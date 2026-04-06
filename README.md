@@ -2,7 +2,9 @@
 
 An extension of [DECIMER V2](https://github.com/Kohulan/DECIMER-Image_Transformer) including the [DECIMER Image Classifier](https://github.com/Iagea/DECIMER-Image-Classifier) — served as an API via Docker, local server, or standalone script.
 
-Supports Mac Silicon (M1-4) GPU acceleration, Linux/Windows with CUDA, and reaction scheme image classification.
+Supports Mac Silicon (M1-4) GPU acceleration, Linux/Windows TensorFlow GPU usage when the host is configured accordingly, and reaction scheme image classification.
+
+> GPU availability is environment-dependent. On Linux/Windows with NVIDIA hardware, GPU acceleration is used when system drivers/runtime are correctly set up; otherwise processing falls back to CPU.
 
 ## Features
 
@@ -12,35 +14,45 @@ Supports Mac Silicon (M1-4) GPU acceleration, Linux/Windows with CUDA, and react
 - Fast recognition via server-based one-time model loading
 - Easy Python API integration
 
-## Quick Start
+## Start Here
 
-### Docker (Recommended)
+If you are new, choose one of these two paths:
 
-```shell
-docker compose up -d --build
-```
-
-Then install the Python client:
+### Path A: Docker (recommended)
 
 ```shell
-pip install ./packages/decimerapi/
+# Use pre-built Docker Hub image (default compose file)
+docker compose up -d
+
+# Build locally from this repository
+docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
 ```
 
-### Local Server
+### Path B: No Docker (local Python)
 
 ```shell
 uv sync
 uv run python decimer_server.py
 ```
 
-The server runs on `localhost:8099`. See [`example_usage`](./example_usage) for complete examples.
+Server URL in both cases: `http://localhost:8099`
+
+For details and troubleshooting, use the docs linked below.
 
 ## Documentation
 
-- [Installation Guide](./INSTALLATION.md) - Docker, local, and standalone setup
-- [API Reference](./readme_api_calls.md) - HTTP and Python API usage
+- [Installation Guide](./INSTALLATION.md) - Guided setup (Docker or no-Docker), plus optional advanced topics
+- [API Endpoints](./API_ENDPOINTS.md) - Canonical endpoint contract (request/response/error semantics)
+- [API Examples](./example_usage/API_EXAMPLES.md) - Practical request examples (Python and curl)
+- [Example Scripts](./example_usage/README.md) - Which script to use by audience and scenario
+- Latest addition: `decimerapi` now provides both `call_image2smiles(...)` (smiles-only, backwards compatible) and `call_image2smiles_with_meta(...)` (full response JSON with metadata). See [decimerapi README](./packages/decimerapi/README.md)
 - [Differences](./DIFFERENCES.md) - Changes from original DECIMER packages
 - [FAQ](./FAQ.md) - Common questions and important caveats
+
+## Contributions
+Idea and implementation: Docminus
+
+For V0.3.0: hardening of endpoints and usage for mcp tools: Use of OpenCode support.
 
 ## License
 

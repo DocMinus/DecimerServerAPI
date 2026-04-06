@@ -1,5 +1,5 @@
-"""This is an example of how to use the image2smiles API via a Docker container.
-Make sure to have the Docker container running before executing this code.
+"""This is an example of how to use the image2smiles API via Docker or a local server.
+Make sure the server is running before executing this code.
 Only requires the `requests` library: pip install requests
 """
 

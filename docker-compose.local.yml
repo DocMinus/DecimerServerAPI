@@ -1,0 +1,6 @@
+services:
+  decimer_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: decimer_api:latest
