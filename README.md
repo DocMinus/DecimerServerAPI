@@ -52,7 +52,8 @@ For details and troubleshooting, use the docs linked below.
 ## Contributions
 Idea and implementation: Docminus
 
-For V0.3.0: hardening of endpoints and usage for mcp tools: Use of OpenCode support.
+Recent updates include endpoint hardening and improved MCP-oriented usage/documentation.
+AI-assisted coding was used for parts of this work (via OpenCode / GPT-based tooling), with manual review and integration by the maintainer.
 
 ## License
 
