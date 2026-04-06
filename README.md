@@ -38,7 +38,8 @@ The server runs on `localhost:8099`. See [`example_usage`](./example_usage) for 
 ## Documentation
 
 - [Installation Guide](./INSTALLATION.md) - Docker, local, and standalone setup
-- [API Reference](./readme_api_calls.md) - HTTP and Python API usage
+- [API Endpoints](./API_ENDPOINTS.md) - Endpoint definitions, schemas, and error semantics
+- [API Calls](./readme_api_calls.md) - Practical HTTP and Python usage examples
 - [Differences](./DIFFERENCES.md) - Changes from original DECIMER packages
 - [FAQ](./FAQ.md) - Common questions and important caveats
 

@@ -1,6 +1,8 @@
 # API calls using installed decimerapi package
 Requires installed server. if no local server running, docker can still be used if run within this decimerapi package (see README.md).
 
+For complete endpoint behavior, request/response schema, reason codes, and validation errors, see [`API_ENDPOINTS.md`](./API_ENDPOINTS.md).
+
 See also the script `decimer_server_usage_example.py`
 
 ```python

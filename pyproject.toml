@@ -1,6 +1,6 @@
 [project]
 name = "decimer-server"
-version = "0.2.1"
+version = "0.3.0"
 description = "DECIMER image-to-SMILES FastAPI server"
 requires-python = ">=3.10,<3.12"
 dependencies = [
