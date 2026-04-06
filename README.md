@@ -41,12 +41,14 @@ For details and troubleshooting, use the docs linked below.
 - [API Endpoints](./API_ENDPOINTS.md) - Canonical endpoint contract (request/response/error semantics)
 - [API Examples](./example_usage/API_EXAMPLES.md) - Practical request examples (Python and curl)
 - [Example Scripts](./example_usage/README.md) - Which script to use by audience and scenario
+- Latest addition: `decimerapi` now provides both `call_image2smiles(...)` (smiles-only, backwards compatible) and `call_image2smiles_with_meta(...)` (full response JSON with metadata). See [decimerapi README](./packages/decimerapi/README.md)
 - [Differences](./DIFFERENCES.md) - Changes from original DECIMER packages
 - [FAQ](./FAQ.md) - Common questions and important caveats
 
 ## Contributions
-Docminus
-For V0.3.0, hardening of endpoints and usage for mcp tools, OpenCode support.
+Idea and implementation: Docminus
+
+For V0.3.0: hardening of endpoints and usage for mcp tools: Use of OpenCode support.
 
 ## License
 

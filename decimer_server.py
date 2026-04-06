@@ -122,10 +122,18 @@ def _build_response(
     threshold,
     decision,
 ):
+    normalized_score = classifier_score
+    if normalized_score is not None:
+        try:
+            normalized_score = float(normalized_score)
+        except (TypeError, ValueError):
+            if hasattr(normalized_score, "item"):
+                normalized_score = float(normalized_score.item())
+
     return {
         "smiles": smiles,
         "reason": reason,
-        "classifier_score": classifier_score,
+        "classifier_score": normalized_score,
         "classifier_threshold": threshold,
         "classifier_decision": decision,
         "threshold": threshold,

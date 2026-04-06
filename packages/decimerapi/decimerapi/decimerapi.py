@@ -43,14 +43,14 @@ class DecimerAPI:
         _convert_emf2png(input_path: Path) -> Path:
             Converts an EMF file to PNG using Inkscape.
 
-        call_image2smiles_api(input_image: Path, hand_drawn: bool = False, classify_image: bool = True) -> str:
-            Calls the DECIMER API to convert an image to a SMILES string.
-                input_image (Path): Path to the image file.
-                hand_drawn (bool): Boolean indicating if the image is hand-drawn.
-                classify_image (bool): Boolean indicating if the image should be classified.
-                Note that when using non-structure images, classifyt should be set to TRUE (default!
-            Returns:
-                str: The SMILES string if the API call is successful, None otherwise.
+        call_image2smiles(input_image: Path | str, hand_drawn: bool = False, classify_image: bool = True) -> str | None:
+            Calls the DECIMER API and returns only the SMILES value (backwards compatible behavior).
+
+        call_image2smiles_with_meta(input_image: Path | str, hand_drawn: bool = False, classify_image: bool = True) -> dict[str, Any] | None:
+            Calls the DECIMER API and returns the full response JSON, including metadata fields.
+
+        server_status() -> str:
+            Returns a simple status string based on the server root endpoint response.
     """
 
     def __init__(self, host: str = "localhost", port: int = 8099):
