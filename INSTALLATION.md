@@ -26,6 +26,8 @@ docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
 
 `docker-compose.yml` is now the Docker Hub default. `docker-compose.local.yml` is an override for local builds.
 
+For reproducible deployments, pin a version tag in `docker-compose.yml` (for example `docker.io/docminus/decimer_api:1.2.0`) instead of `:latest`.
+
 Alternatively, use the Makefile for convenience:
 
 ```shell

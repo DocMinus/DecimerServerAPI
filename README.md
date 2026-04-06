@@ -28,6 +28,8 @@ docker compose up -d
 docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
 ```
 
+For reproducible deployments, pin the image tag in `docker-compose.yml` (for example `docker.io/docminus/decimer_api:1.2.0`) instead of `:latest`.
+
 ### Path B: No Docker (local Python)
 
 ```shell
