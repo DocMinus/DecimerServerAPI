@@ -18,6 +18,7 @@ example_usage/
 **/*.egg
 **/dist
 **/build
+**/.pytest_cache
 
 # single files
 Makefile
