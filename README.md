@@ -51,6 +51,10 @@ For details and troubleshooting, use the docs linked below.
 - [Differences](./DIFFERENCES.md) - Changes from original DECIMER packages
 - [FAQ](./FAQ.md) - Common questions and important caveats
 
+
+## Related Projects
+A MCP-Server building on this is also available here: [https://github.com/DocMinus/DecimerMCPServer](https://github.com/DocMinus/DecimerMCPServer).
+
 ## Contributions
 Idea and implementation: Docminus
 
