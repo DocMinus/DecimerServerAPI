@@ -4,7 +4,7 @@ An extension of [DECIMER V2](https://github.com/Kohulan/DECIMER-Image_Transforme
 
 Supports Mac Silicon (M1-4) GPU acceleration, Linux/Windows TensorFlow GPU usage when the host is configured accordingly, and reaction scheme image classification.
 
-> GPU availability is environment-dependent. On Linux/Windows with NVIDIA hardware, GPU acceleration is used when system drivers/runtime are correctly set up; otherwise processing falls back to CPU.
+> **Hardware acceleration varies by platform:** macOS (M1-4) uses Metal GPU by default; Linux/Windows with NVIDIA hardware uses CUDA when drivers are installed, otherwise CPU. Use the `/system/status` endpoint (v1.4.0+) to check your active accelerator type.
 
 ## Features
 
