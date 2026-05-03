@@ -8,7 +8,6 @@ Tools for server usage, basically independent from used environment, only requir
 
 working tools implementation, now as class to submit a different port
 typo fixed; host added to __init__ method, allows to run not just locally
-V 0.6.0, 2026-04-06
 now automatic EMF to PNG conversion based on Inkscape presence. See readme for installation instructions.
 Added API hardening compatibility helpers and metadata response support.
 """
@@ -51,6 +50,9 @@ class DecimerAPI:
 
         server_status() -> str:
             Returns a simple status string based on the server root endpoint response.
+
+        get_system_status() -> dict[str, Any] | None:
+            Retrieve system status including hardware acceleration information (CPU/CUDA/Metal).
     """
 
     def __init__(self, host: str = "localhost", port: int = 8099):
@@ -193,3 +195,31 @@ class DecimerAPI:
             return "Server is running."
         else:
             return "Server is not running."
+
+    def get_system_status(self) -> dict[str, Any] | None:
+        """Retrieve system status including hardware acceleration information.
+
+        Returns:
+            dict with keys:
+                - 'status' (str): Server status (e.g., 'ready')
+                - 'accelerator_type' (str): One of 'cpu', 'cuda', 'metal'
+                - 'tensorflow_version' (str): TensorFlow version
+
+            Returns None if server is unreachable or returns invalid response.
+
+        Example:
+            >>> api = DecimerAPI()
+            >>> status = api.get_system_status()
+            >>> if status and status['accelerator_type'] != 'cpu':
+            ...     print(f"GPU available: {status['accelerator_type']}")
+        """
+        try:
+            response = requests.get(f"{self.DECIMER_URL}/system/status")
+            if response.status_code != 200:
+                print(f"Error: Server returned status code {response.status_code}")
+                return None
+
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            print(f"Error connecting to DECIMER server: {e}")
+            return None
