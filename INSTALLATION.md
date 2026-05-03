@@ -28,14 +28,6 @@ docker compose -f docker-compose.local.yml up -d --build
 
 For reproducible deployments, pin a version tag in `docker-compose.yml` (for example `docker.io/docminus/decimer_api:1.2.0`) instead of `:latest`.
 
-Alternatively, use the Makefile for convenience:
-
-```shell
-make buildx
-```
-
-This builds for `linux/amd64` platform (recommended for TensorFlow compatibility).
-
 ### Install Python client
 
 To access via the Python API, install the client package into your existind/desired environment:
