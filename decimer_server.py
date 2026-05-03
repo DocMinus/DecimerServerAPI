@@ -4,17 +4,9 @@ Mini-server for Decimer image to SMILES conversion
 
 license: MIT
 Copyright (c) 2024 DocMinus
-V0.0.1 - basic code for working server.
-V0.0.2 - added the actual decimer conversion
-V0.0.3 - added image classifier if actually a chemical structure or not
-V0.0.4 - added image classifier based on score <0.3 instead of the True/False
-V0.1.0 - V bump, now with encoding instead of file upload, works better with docker
-V0.2.0 - one server version only that includes the classifier as optional
-V0.2.1 - added threshold as variable
-V0.3.0 - API hardening (threshold env config, metadata, reason codes, input validation)
-2026-04-06
-See Readme / requirements for dependencies
-works on Linux and Windows, also Mac with GPU
+See Readme / requirements for dependencies and release notes.
+For version history, see: https://github.com/DocMinus/DecimerServerAPI/releases
+Works on Linux and Windows, also Mac with GPU
 """
 
 import base64
