@@ -81,3 +81,69 @@ Health check:
 ```shell
 curl -X GET "http://localhost:8099/"
 ```
+
+## Checking System Status & Hardware Acceleration
+
+Query system information including hardware accelerator type (CPU/CUDA/Metal).
+
+### Using the `decimerapi` Python Package
+
+```python
+from decimerapi import DecimerAPI
+
+api = DecimerAPI()  # default localhost:8099
+status = api.get_system_status()
+
+if status:
+    print(f"Server Status: {status['status']}")
+    print(f"Accelerator: {status['accelerator_type']}")
+    print(f"TensorFlow: {status['tensorflow_version']}")
+else:
+    print("Could not retrieve system status")
+
+# Quick check for GPU availability
+if status and status['accelerator_type'] != 'cpu':
+    print(f"GPU acceleration available: {status['accelerator_type']}")
+else:
+    print("Running on CPU")
+```
+
+### Using Direct HTTP Requests
+
+#### Python
+
+```python
+import requests
+
+url = "http://localhost:8099/system/status"
+
+try:
+    response = requests.get(url)
+    response.raise_for_status()
+    status = response.json()
+    print(f"Accelerator Type: {status['accelerator_type']}")
+    print(f"TensorFlow Version: {status['tensorflow_version']}")
+except requests.exceptions.RequestException as e:
+    print(f"Error: {e}")
+```
+
+#### Curl
+
+```shell
+curl -X GET "http://localhost:8099/system/status"
+```
+
+Expected response:
+
+```json
+{
+  "status": "ready",
+  "accelerator_type": "cuda",
+  "tensorflow_version": "2.15.0"
+}
+```
+
+Possible `accelerator_type` values:
+- `cpu`: CPU-only processing
+- `cuda`: NVIDIA CUDA GPU (Linux/Windows)
+- `metal`: Apple Metal (macOS with M1-M4)
