@@ -1,0 +1,34 @@
+# TensorFlow official GPU image with CUDA 12, CuDNN, and Python 3.10 pre-configured
+FROM tensorflow/tensorflow:latest-gpu
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential libgl1-mesa-glx libglib2.0-0 inkscape && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Set Python 3.10 as default (TensorFlow base already has Python)
+ENV PYTHONUNBUFFERED=1
+ENV PIP_NO_CACHE_DIR=1
+ENV PATH="/opt/venv/bin:$PATH"
+ENV UV_PROJECT_ENVIRONMENT=/opt/venv
+ENV UV_PYTHON_PREFERENCE=only-system
+
+WORKDIR /app
+COPY . /app
+
+RUN mkdir -p /home/appuser/.data/DECIMER-V2
+
+# Install uv and dependencies
+RUN pip install --upgrade pip uv
+RUN uv sync --no-dev --no-editable --no-cache
+
+WORKDIR /app
+
+# Run server as non-root user, consistent with CPU image layout.
+RUN adduser --disabled-password --gecos '' appuser \
+    && chown -R appuser:appuser /app \
+    && chown -R appuser:appuser /home/appuser/.data
+USER appuser
+ENV HOME=/home/appuser
+
+EXPOSE 8099
+ENTRYPOINT ["python", "decimer_server.py"]

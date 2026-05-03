@@ -1,0 +1,25 @@
+services:
+  decimer:
+    build:
+      context: .
+      dockerfile: Dockerfile.cuda-tf
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - TF_FORCE_GPU_ALLOW_GROWTH=true
+      - TF_CPP_MIN_LOG_LEVEL=2
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
+    volumes:
+      - model_files:/home/appuser/.data/DECIMER-V2
+    ports:
+      - "8099:8099"
+    restart: always
+
+volumes:
+  model_files:

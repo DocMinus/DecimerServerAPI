@@ -1,0 +1,33 @@
+# This approach doesn't seem to work for me due to non-matching TF compilation.
+# the upgrade doesn't work and without it, build works, but python code doesn't execute correctly.
+# Use NVIDIA CUDA base image with Python 3.10
+FROM nvidia/cuda:12.0.0-cudnn8-runtime-ubuntu22.04
+
+RUN apt-get update && apt-get install -y \
+    python3.10 python3.10-venv python3.10-dev python3-pip \
+    build-essential libgl1-mesa-glx libglib2.0-0 && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Upgrade cuDNN to 8.9.4+ to match TensorFlow compilation - this does not work; 
+RUN apt-get update && apt-get install -y --only-upgrade \
+    libcudnn8 && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Set Python 3.10 as default
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1
+
+ENV PYTHONUNBUFFERED=1
+ENV PATH="/opt/venv/bin:$PATH"
+ENV UV_PROJECT_ENVIRONMENT=/opt/venv
+ENV UV_PYTHON_PREFERENCE=only-system
+
+WORKDIR /app
+COPY . /app
+
+RUN mkdir -p /home/appuser/.data/DECIMER-V2
+
+RUN pip install --upgrade pip uv
+RUN uv sync --no-dev --no-editable
+
+WORKDIR /app
+ENTRYPOINT ["python", "decimer_server.py"]

@@ -33,7 +33,7 @@ RUN rm -rf /app/packages
 ## -------- Production Stage ----------##
 FROM python:3.10-slim-bullseye AS production
 RUN apt-get update && apt-get install -y\
-    libgl1-mesa-glx libglib2.0-0 && \
+    libgl1-mesa-glx libglib2.0-0 inkscape && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # To avoid redownloading the model every time the container is started; needs mounting when running the container
