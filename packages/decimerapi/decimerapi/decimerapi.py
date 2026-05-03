@@ -8,7 +8,6 @@ Tools for server usage, basically independent from used environment, only requir
 
 working tools implementation, now as class to submit a different port
 typo fixed; host added to __init__ method, allows to run not just locally
-V 0.6.0, 2026-04-06
 now automatic EMF to PNG conversion based on Inkscape presence. See readme for installation instructions.
 Added API hardening compatibility helpers and metadata response support.
 """

@@ -16,6 +16,31 @@ Simple health/status endpoint.
 }
 ```
 
+## `GET /system/status`
+
+Check hardware acceleration availability and system information at runtime.
+
+### Response `200`
+
+```json
+{
+  "status": "ready",
+  "accelerator_type": "cuda",
+  "tensorflow_version": "2.15.0"
+}
+```
+
+Possible `accelerator_type` values:
+- `cuda`: NVIDIA CUDA GPU (Linux/Windows)
+- `metal`: Apple Metal (macOS with M1-M4 chips)
+- `cpu`: CPU-only processing (fallback)
+
+### Use Cases
+
+- Verify GPU acceleration is available in containerized deployments
+- Debug hardware acceleration issues
+- Validate environment configuration
+
 ## `POST /image2smiles/`
 
 Convert a base64-encoded image into a SMILES string.

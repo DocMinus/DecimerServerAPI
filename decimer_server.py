@@ -20,8 +20,10 @@ works on Linux and Windows, also Mac with GPU
 import base64
 import binascii
 import os
+import platform
 import tempfile
 
+import tensorflow as tf
 import uvicorn
 from DECIMER.decimer import *
 from decimer_image_classifier import DecimerImageClassifier
@@ -48,19 +50,41 @@ def _get_classifier_threshold() -> float:
 
 
 def _get_max_payload_size() -> int:
-    """Returns max allowed encoded payload size in bytes."""
+     """Returns max allowed encoded payload size in bytes."""
 
-    default_limit = 6 * 1024 * 1024
-    configured_limit = os.getenv("DECIMER_MAX_ENCODED_IMAGE_BYTES")
-    if configured_limit is None:
-        return default_limit
+     default_limit = 6 * 1024 * 1024
+     configured_limit = os.getenv("DECIMER_MAX_ENCODED_IMAGE_BYTES")
+     if configured_limit is None:
+         return default_limit
 
+     try:
+         limit = int(configured_limit)
+     except ValueError:
+         return default_limit
+
+     return limit if limit > 0 else default_limit
+
+
+def _get_accelerator_type() -> str:
+    """Detects the available hardware accelerator type.
+    
+    Returns:
+        str: One of 'cuda', 'metal', or 'cpu'
+    """
+    
     try:
-        limit = int(configured_limit)
-    except ValueError:
-        return default_limit
-
-    return limit if limit > 0 else default_limit
+        gpus = tf.config.list_physical_devices("GPU")
+        if gpus:
+            # Check if it's Metal (macOS) or CUDA (Linux/Windows)
+            system = platform.system().lower()
+            if system == "darwin":
+                return "metal"
+            else:
+                return "cuda"
+    except Exception:
+        pass
+    
+    return "cpu"
 
 
 IC_THRESHOLD: float = _get_classifier_threshold()
@@ -214,6 +238,16 @@ async def _extract_request_params(request: Request):
 @app.get("/")
 async def root():
     return {"Message": "Image2smiles converter is up and running."}
+
+
+@app.get("/system/status")
+async def system_status():
+    """Returns system status including hardware accelerator type and TensorFlow version."""
+    return {
+        "status": "ready",
+        "accelerator_type": _get_accelerator_type(),
+        "tensorflow_version": tf.__version__,
+    }
 
 
 @app.exception_handler(Exception)
