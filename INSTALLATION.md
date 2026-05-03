@@ -18,7 +18,7 @@ Requires Docker with Compose.
 docker compose up -d
 
 # Build locally from this repository
-docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
+docker compose -f docker-compose.local.yml up -d --build
 ```
 
 (Your system might use `docker-compose` instead)
@@ -49,9 +49,17 @@ This is not required if you want to use plain HTTP requests.
 ### GPU Notes
 
 - Docker doesn't support Mac GPU (Docker is Linux-only)
-- Linux/Windows GPU support depends on host NVIDIA/CUDA runtime setup
-- This project does not auto-provision NVIDIA drivers/CUDA; TensorFlow uses GPU only if your system is already configured for it
 - If GPU runtime is unavailable, TensorFlow falls back to CPU automatically
+- Linux/Windows GPU support depends on host NVIDIA/CUDA runtime setup
+- For build with Nvidia GPU, a CUDA based docker build option is available.
+    - `nvidia-smi` on the host should show GPU status without errors
+
+To build and run with Nvidia GPU support:
+```shell
+docker compose -f docker-compose.cuda.yml up -d --build
+```
+
+Note: this hasn't been tested on all possible platforms/configurations.
 
 ---
 
