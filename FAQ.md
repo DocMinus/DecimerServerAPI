@@ -21,7 +21,7 @@ This version solves these by:
 
 > **Note:** Initial recognition calls take time, but batch submissions are much faster after the first call.
 
-> **GPU note:** On Linux/Windows with NVIDIA hardware, GPU acceleration depends on your system/runtime setup (drivers/CUDA/container GPU runtime). This project does not configure NVIDIA stack automatically and will run on CPU when GPU runtime is unavailable.
+> **GPU note:** On Linux/Windows with NVIDIA hardware, GPU acceleration depends on your system/runtime setup (drivers/CUDA/container GPU runtime). This project does not configure NVIDIA stack automatically and will run on CPU when GPU runtime is unavailable. (unless you run the CUDA-enabled Docker build, which requires a compatible NVIDIA setup on the host).
 
 ## Uninstalling
 

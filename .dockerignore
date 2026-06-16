@@ -30,8 +30,8 @@ Dockerfile*
 .dockerignore
 .aws
 .env
-.spec
-.sh
+*.spec
+*.sh
 result.tmp
 *.csv
 *.bkp
@@ -44,7 +44,7 @@ result.tmp
 *.bmp
 
 # Dependency files 
-uv.lock
+# uv.lock
 
 # Docker compose 
 docker-compose.yml

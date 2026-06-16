@@ -1,5 +1,6 @@
 services:
   decimer:
+    container_name: decimerserverapi_cuda
     build:
       context: .
       dockerfile: Dockerfile.cuda-tf
@@ -20,6 +21,12 @@ services:
     ports:
       - "8099:8099"
     restart: always
+    networks:
+      - decimernetwork
 
 volumes:
   model_files:
+
+networks:
+  decimernetwork:
+    name: decimernetwork

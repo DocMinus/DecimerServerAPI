@@ -24,7 +24,7 @@
 **/*.log
 
 # Lock file (regenerated per environment)
-uv.lock
+# uv.lock
 
 # Backup files
 *.bkp

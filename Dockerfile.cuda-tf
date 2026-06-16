@@ -1,5 +1,5 @@
 # TensorFlow official GPU image with CUDA 12, CuDNN, and Python 3.10 pre-configured
-FROM tensorflow/tensorflow:latest-gpu
+FROM tensorflow/tensorflow:2.15.0-gpu
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential libgl1-mesa-glx libglib2.0-0 inkscape && \

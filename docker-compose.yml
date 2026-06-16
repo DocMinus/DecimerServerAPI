@@ -8,6 +8,12 @@ services:
     volumes:
       - model_files:/home/appuser/.data/DECIMER-V2 # this is the path to the DECIMER-V2 data directory
     restart: always
+    networks:
+      - decimernetwork
 
 volumes:
   model_files:
+
+networks:
+  decimernetwork:
+    name: decimernetwork

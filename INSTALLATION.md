@@ -11,6 +11,8 @@ Advanced/optional modes (for experienced users) are listed later in this file.
 
 Requires Docker with Compose.
 
+> **Run only one Compose stack at a time.** The default, local-build, and CUDA stacks all bind host port `8099` and share the `decimernetwork` network, so they cannot run simultaneously. Stop the running stack (`docker compose ... down`) before starting another.
+
 ### Build and start locally
 
 ```shell

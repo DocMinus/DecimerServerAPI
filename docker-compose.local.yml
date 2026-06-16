@@ -4,3 +4,9 @@ services:
       context: .
       dockerfile: Dockerfile
     image: decimer_api:latest
+    networks:
+      - decimernetwork
+
+networks:
+  decimernetwork:
+    name: decimernetwork
