@@ -13,6 +13,7 @@ services:
 
 volumes:
   model_files:
+    name: decimerserverapi_model_files
 
 networks:
   decimernetwork:

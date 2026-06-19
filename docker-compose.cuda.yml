@@ -1,6 +1,7 @@
 services:
   decimer:
     container_name: decimerserverapi_cuda
+    image: decimerserverapi-cuda:latest
     build:
       context: .
       dockerfile: Dockerfile.cuda-tf
@@ -26,6 +27,7 @@ services:
 
 volumes:
   model_files:
+    name: decimerserverapi_model_files
 
 networks:
   decimernetwork:
